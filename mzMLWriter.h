@@ -29,7 +29,7 @@ namespace MSToolkit {
 
 typedef struct sMzMLIndex{
   string id;
-  f_off offset;
+  int offset;
 } sMzMLIndex;
 
 class MzMLWriter {
@@ -76,7 +76,7 @@ private:
   bool exportIsolationWindow(BasicChromatogram& c, bool bPre, int tabs = 0);
   bool exportIsolationWindow(Spectrum& s, int tabs=0);
   bool exportMzML();
-  bool exportOffset(string idRef, f_off offset, int tabs=0);
+  bool exportOffset(string idRef, int offset, int tabs=0);
   bool exportPrecursor(BasicChromatogram& c, int tabs = 0);
   bool exportPrecursor(Spectrum& s, int tabs=0);
   bool exportPrecursorList(Spectrum& s, int tabs=0);
@@ -116,8 +116,8 @@ private:
   int index;
   int chromIndex;
   FILE* fptr;
-  f_off fSpecList;
-  f_off fChromList;
+  int fSpecList;
+  int fChromList;
 
   int iSpecList;
   int iChromList;

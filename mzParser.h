@@ -155,7 +155,7 @@ public:
 
 	int scanNum;
 	string idRef;
-	f_off offset;
+	int offset;
 };
 
 
@@ -396,8 +396,8 @@ protected:
 
 // access point entry 
 typedef struct point {
-	f_off out;          // corresponding offset in uncompressed data 
-	f_off in;           // offset in input file of first full byte
+	int out;          // corresponding offset in uncompressed data 
+	int in;           // offset in input file of first full byte
 	int bits;           // number of bits (1-7) from byte at in - 1, or 0
 	unsigned char window[WINSIZE];  // preceding 32K of uncompressed data
 } point;
@@ -416,26 +416,26 @@ public:
 	~Czran();
 
 	void free_index();
-	gz_access *addpoint(int bits, f_off in, f_off out, unsigned left, unsigned char *window);
-	int build_index(FILE *in, f_off span);
-	int build_index(FILE *in, f_off span, gz_access **built);
-	int extract(FILE *in, f_off offset, unsigned char *buf, int len);
-	int extract(FILE *in, f_off offset);
-	f_off getfilesize();
+	gz_access *addpoint(int bits, int in, int out, unsigned left, unsigned char *window);
+	int build_index(FILE *in, int span);
+	int build_index(FILE *in, int span, gz_access **built);
+	int extract(FILE *in, int offset, unsigned char *buf, int len);
+	int extract(FILE *in, int offset);
+	int getfilesize();
 
 protected:
 private:
 	gz_access* index;
 	
 	unsigned char* buffer;
-	f_off bufferOffset;
+	int bufferOffset;
 	int bufferLen;
 
 	unsigned char* lastBuffer;
-	f_off lastBufferOffset;
+	int lastBufferOffset;
 	int lastBufferLen;
 
-	f_off fileSize;
+	int fileSize;
 
 };
 
@@ -463,7 +463,7 @@ public:
 	//  SAXHandler Parsing functions.
 	bool open(const char* fileName);
 	bool parse();
-	bool parseOffset(f_off offset);
+	bool parseOffset(int offset);
 	void setGZCompression(bool b);
 
 	inline void setFileName(const char* fileName) {
@@ -541,7 +541,7 @@ private:
 	void	processCVParam(const char* name, const char* accession, const char* value, const char* unitName="0", const char* unitAccession="0");
 	void	pushChromatogram();
 	void	pushSpectrum();	// Load current data into pvSpec, may have to guess charge
-	f_off readIndexOffset();
+	int readIndexOffset();
 	void	stopParser();
 
 	//  mzpSAXMzmlHandler Base64 conversion functions
@@ -635,7 +635,7 @@ private:
 
 	//  mzpSAXMzxmlHandler private functions
 	void	pushSpectrum();	// Load current data into pvSpec, may have to guess charge
-	f_off readIndexOffset();
+	int readIndexOffset();
 	void	stopParser();
 
 	//  mzpSAXMzxmlHandler Base64 conversion functions
@@ -1256,7 +1256,7 @@ private:
 #define PRECURSORARRAY_LENGTH 512
 
 typedef double RAMPREAL; 
-typedef f_off ramp_fileoffset_t;
+typedef int ramp_fileoffset_t;
 
 typedef struct RAMPFILE{
 	BasicSpectrum* bs;

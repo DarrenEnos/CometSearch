@@ -179,7 +179,7 @@ bool MzMLWriter::writeIndex(){
   }
 
   unsigned int i;
-  f_off offset;
+  int offset;
 
   if(bTabs) fprintf(fptr," ");
 
@@ -624,7 +624,7 @@ bool MzMLWriter::exportIsolationWindow(Spectrum& s, int tabs){
   return true;
 }
 
-bool MzMLWriter::exportOffset(string idRef, f_off offset, int tabs){
+bool MzMLWriter::exportOffset(string idRef, int offset, int tabs){
 
   string tbs="";
   if(bTabs) {

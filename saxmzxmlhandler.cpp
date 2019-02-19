@@ -550,7 +550,7 @@ uint64_t mzpSAXMzxmlHandler::dtohl(uint64_t l, bool bNet) {
 //Finding the index list offset is done without the xml parser
 //to speed things along. This can be problematic if the <indexListOffset>
 //tag is placed anywhere other than the end of the mzML file.
-f_off mzpSAXMzxmlHandler::readIndexOffset() {
+int mzpSAXMzxmlHandler::readIndexOffset() {
 
 	char buffer[200];
 	char chunk[CHUNK];
@@ -637,7 +637,7 @@ vector<cindex>* mzpSAXMzxmlHandler::getIndex(){
 	return &m_vIndex;
 }
 
-f_off mzpSAXMzxmlHandler::getIndexOffset(){
+int mzpSAXMzxmlHandler::getIndexOffset(){
 	return indexOffset;
 }
 

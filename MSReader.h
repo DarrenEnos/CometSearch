@@ -128,9 +128,9 @@ class MSReader {
   MSHeader header;
   int headerIndex;
   MSSpectrumType fileType;
-  f_off lEnd;
-  f_off lPivot;
-  f_off lFWidth;
+  int lEnd;
+  int lPivot;
+  int lFWidth;
   int iIntensityPrecision;
   int iMZPrecision;
   int iVersion;

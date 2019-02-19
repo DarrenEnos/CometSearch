@@ -79,7 +79,7 @@ void Czran::free_index(){
 
 /* Add an entry to the access point list.  If out of memory, deallocate the
    existing list and return NULL. */
-gz_access * Czran::addpoint(int bits,f_off in, f_off out, unsigned left, unsigned char *window) {
+gz_access * Czran::addpoint(int bits,int in, int out, unsigned left, unsigned char *window) {
     point *next;
 
     /* if list is empty, create it (start with eight points) */
@@ -129,13 +129,13 @@ gz_access * Czran::addpoint(int bits,f_off in, f_off out, unsigned left, unsigne
    returns the number of access points on success (>= 1), Z_MEM_ERROR for out
    of memory, Z_DATA_ERROR for an error in the input file, or Z_ERRNO for a
    file read error.  On success, *built points to the resulting index. */
-int Czran::build_index(FILE *in, f_off span){
+int Czran::build_index(FILE *in, int span){
 	return build_index(in,span,&index);
 }
-int Czran::build_index(FILE *in, f_off span, gz_access **built){
+int Czran::build_index(FILE *in, int span, gz_access **built){
     int ret;
-    f_off totin, totout;        /* our own total counters to avoid 4GB limit */
-    f_off last;                 /* totout value of last access point */
+    int totin, totout;        /* our own total counters to avoid 4GB limit */
+    int last;                 /* totout value of last access point */
     gz_access *index;							/* access points being generated */
     z_stream strm;
     unsigned char input[READCHUNK];
@@ -238,13 +238,13 @@ int Czran::build_index(FILE *in, f_off span, gz_access **built){
    should not return a data error unless the file was modified since the index
    was generated.  extract() may also return Z_ERRNO if there is an error on
    reading or seeking the input file. */
-int Czran::extract(FILE *in, f_off offset) {
+int Czran::extract(FILE *in, int offset) {
 
 		int ret, len;
     point *here;
 		z_stream strm;
     unsigned char input[READCHUNK];
-    f_off marker;
+    int marker;
 
 		/* find where in stream to start */
 		here = index->list;
@@ -326,7 +326,7 @@ int Czran::extract(FILE *in, f_off offset) {
 
 }
 
-int Czran::extract(FILE *in, f_off offset, unsigned char *buf, int len){
+int Czran::extract(FILE *in, int offset, unsigned char *buf, int len){
 
 	int ret, seg;
 
@@ -388,7 +388,7 @@ int Czran::extract(FILE *in, f_off offset, unsigned char *buf, int len){
 
 }
 
-f_off Czran::getfilesize(){
+int Czran::getfilesize(){
 	return fileSize;
 }
 

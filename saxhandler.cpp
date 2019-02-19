@@ -274,7 +274,7 @@ bool mzpSAXHandler::parse()
 //This function operates similarly to the parse() function.
 //However, it accepts a file offset to begin parsing at a specific point.
 //The parser will halt file reading when stop flag is triggered.
-bool mzpSAXHandler::parseOffset(f_off offset){
+bool mzpSAXHandler::parseOffset(int offset){
 
 	if (fptr == NULL){
 		cerr << "Error parseOffset(): No open file." << endl;
