@@ -55,7 +55,7 @@ using namespace H5;
 //#define __LINUX__				// to compile with gcc (or g++) on LINUX
 //#define _MSC_VER	// to compile with Microsoft Studio
 
-#define XMLCLASS		
+#define XMLCLASS
 #ifndef XML_STATIC
 #define XML_STATIC	// to statically link the expat libraries
 #endif
@@ -337,7 +337,7 @@ protected:
 	double					totalIonCurrent;
 	vector<specDP>*	vData;								//Spectrum data points
   vector<sPrecursorIon>* vPrecursor;
-	   
+
 };
 
 class BasicChromatogram	{
@@ -383,7 +383,7 @@ protected:
   double                      productOffsetLower;
   double                      productOffsetUpper;
   vector<TimeIntensityPair>		vData;					//Chromatogram data points
-	   
+
 };
 
 //------------------------------------------------
@@ -394,18 +394,18 @@ protected:
 #define CHUNK 32768         // file input buffer size
 #define READCHUNK 16384
 
-// access point entry 
+// access point entry
 typedef struct point {
-	int out;          // corresponding offset in uncompressed data 
+	int out;          // corresponding offset in uncompressed data
 	int in;           // offset in input file of first full byte
 	int bits;           // number of bits (1-7) from byte at in - 1, or 0
 	unsigned char window[WINSIZE];  // preceding 32K of uncompressed data
 } point;
 
-// access point list 
+// access point list
 typedef struct gz_access {
-	int have;           // number of list entries filled in 
-	int size;           // number of list entries allocated 
+	int have;           // number of list entries filled in
+	int size;           // number of list entries allocated
 	point *list; // allocated list
 } gz_access;
 
@@ -426,7 +426,7 @@ public:
 protected:
 private:
 	gz_access* index;
-	
+
 	unsigned char* buffer;
 	int bufferOffset;
 	int bufferLen;
@@ -509,7 +509,7 @@ public:
 
 	//  SAXMzmlHandler public functions
 	vector<cindex>*					getChromatIndex();
-	f_off										getIndexOffset();
+	int										getIndexOffset();
 	vector<instrumentInfo>*	getInstrument();
 	int											getPeaksCount();
 	vector<cindex>*					getSpecIndex();
@@ -520,7 +520,7 @@ public:
 	bool										readChromatogram(int num=-1);
 	bool										readHeader(int num=-1);
 	bool										readSpectrum(int num=-1);
-	
+
 protected:
 
 private:
@@ -579,7 +579,7 @@ private:
 	vector<cindex>		m_vIndex;
 	cindex						curIndex;
 	int								posIndex;
-	f_off							indexOffset;
+	int							indexOffset;
 
 	vector<cindex>		m_vChromatIndex;
 	cindex						curChromatIndex;
@@ -619,7 +619,7 @@ public:
 
 	//  mzpSAXMzxmlHandler public functions
 	vector<cindex>*	getIndex();
-	f_off						getIndexOffset();
+	int						getIndexOffset();
 	instrumentInfo	getInstrument();
 	int							getPeaksCount();
 	int							highScan();
@@ -628,7 +628,7 @@ public:
 	bool						readChromat(int num=-1);
 	bool						readHeader(int num=-1);
 	bool						readSpectrum(int num=-1);
-	
+
 protected:
 
 private:
@@ -667,7 +667,7 @@ private:
 	vector<cindex>		m_vIndex;
 	cindex						curIndex;
 	int								posIndex;
-	f_off							indexOffset;
+	int							indexOffset;
 
 	//  mzpSAXMzxmlHandler data members.
 	uLong										m_compressLen;	// For compressed data
@@ -746,7 +746,7 @@ struct FileInformationMZ5Data	{
 	unsigned short deltaMZ;
 	unsigned short translateInten;
 };
-	
+
 struct FileInformationMZ5: public FileInformationMZ5Data {
 	FileInformationMZ5();
 	FileInformationMZ5(const FileInformationMZ5&);
@@ -1255,7 +1255,7 @@ private:
 #define CHARGEARRAY_LENGTH 128
 #define PRECURSORARRAY_LENGTH 512
 
-typedef double RAMPREAL; 
+typedef double RAMPREAL;
 typedef int ramp_fileoffset_t;
 
 typedef struct RAMPFILE{
@@ -1298,21 +1298,21 @@ typedef struct RAMPFILE{
 static vector<const char *> data_Ext;
 
 struct ScanHeaderStruct {
-   
+
 	int    acquisitionNum;            // scan number as declared in File (may be gaps)
-	int    mergedScan;                // only if MS level > 1 
-	int    mergedResultScanNum;       // scan number of the resultant merged scan 
-	int    mergedResultStartScanNum;  // smallest scan number of the scanOrigin for merged scan 
-	int    mergedResultEndScanNum;    // largest scan number of the scanOrigin for merged scan 
+	int    mergedScan;                // only if MS level > 1
+	int    mergedResultScanNum;       // scan number of the resultant merged scan
+	int    mergedResultStartScanNum;  // smallest scan number of the scanOrigin for merged scan
+	int    mergedResultEndScanNum;    // largest scan number of the scanOrigin for merged scan
 	int    msLevel;
 	int    numPossibleCharges;
 	int    peaksCount;
-	int    precursorCharge;           // only if MS level > 1 
-  int    precursorCount;   
-	int    precursorScanNum;          // only if MS level > 1 
+	int    precursorCharge;           // only if MS level > 1
+  int    precursorCount;
+	int    precursorScanNum;          // only if MS level > 1
 	int    scanIndex;                 //a sequential index for non-sequential scan numbers (1-based)
 	int    seqNum;                    //number in sequence observed file (1-based)
-	 
+
 	double basePeakIntensity;
 	double basePeakMZ;
 	double collisionEnergy;
@@ -1323,22 +1323,22 @@ struct ScanHeaderStruct {
 	double lowMZ;
 	double precursorIntensity;    // only if MS level > 1
   double precursorMonoMZ;
-	double precursorMZ;           //only if MS level > 1 
+	double precursorMZ;           //only if MS level > 1
 	double retentionTime;         //in seconds
   double selectionWindowLower;  //the range of ions acquired
   double selectionWindowUpper;  //in DDA, for example, +/-1 Da around precursor
 	double totIonCurrent;
-   
+
 	char   activationMethod[SCANTYPE_LENGTH];
   char   additionalPrecursors[PRECURSORARRAY_LENGTH];
 	char   filterLine[CHARGEARRAY_LENGTH];
   char   idString[CHARGEARRAY_LENGTH];
 	char   possibleCharges[SCANTYPE_LENGTH];
 	char   scanType[SCANTYPE_LENGTH];
-	      
+
 	bool   centroid; //true if spectrum is centroided
 //	bool					possibleChargesArray[CHARGEARRAY_LENGTH]; /* NOTE: does NOT include "precursorCharge" information; only from "possibleCharges" */
-   
+
 	ramp_fileoffset_t		filePosition; /* where in the file is this header? */
 };
 

@@ -93,7 +93,7 @@ class MSReader {
   void setPrecisionInt(int i);
   void setPrecisionMZ(int i);
   void writeFile(const char* c, bool text, MSObject& m);
-  void writeFile(const char* c, MSFileFormat ff, MSObject& m, char* sha1Report='\0');
+  void writeFile(const char* c, MSFileFormat ff, MSObject& m, char** sha1Report='\0');
 
   bool readMGFFile(const char* c, Spectrum& s); //Note, no random-access of MGF files.
   bool readMSTFile(const char* c, bool text, Spectrum& s, int scNum=0);
@@ -182,21 +182,21 @@ class MSReader {
   #endif
   #endif
 
-  //support for sqlite
-  #ifndef _NOSQLITE
-  bool readSqlite(const char* c, Spectrum& s, int scNum);
-  void getUncompressedPeaks(Spectrum& s, int& numPeaks, int& mzLen, unsigned char* comprM, int& intensityLen, unsigned char* comprI);
-  int curIndex;  //remember where we are
-  int lastScanNumber;
-  int lastIndex;
-  sqlite3* db;
-  void sql_stmt(const char* stmt);
-  bool executeSqlStmt(Spectrum& s, char* zSql);
-  void appendFile(Spectrum& s);
-  void writeSqlite(const char* c, MSObject& m, char* sha1Report);
-  void readChargeTable(int scanID, Spectrum& s);
-  vector<int> estimateCharge(Spectrum& s);
-  #endif
+  // //support for sqlite
+  // #ifndef _NOSQLITE
+  // bool readSqlite(const char* c, Spectrum& s, int scNum);
+  // void getUncompressedPeaks(Spectrum& s, int& numPeaks, int& mzLen, unsigned char* comprM, int& intensityLen, unsigned char* comprI);
+  // int curIndex;  //remember where we are
+  // int lastScanNumber;
+  // int lastIndex;
+  // sqlite3* db;
+  // void sql_stmt(const char* stmt);
+  // bool executeSqlStmt(Spectrum& s, char* zSql);
+  // void appendFile(Spectrum& s);
+  // void writeSqlite(const char* c, MSObject& m, char* sha1Report);
+  // void readChargeTable(int scanID, Spectrum& s);
+  // vector<int> estimateCharge(Spectrum& s);
+  // #endif
 
 };
 
